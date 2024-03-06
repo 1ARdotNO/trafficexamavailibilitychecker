@@ -27,7 +27,7 @@ jobs:
     - name: Create Issue
       uses: actions/github-script@v4
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GH_TOKEN }}
         script: |
           const output = "${{ steps.run-powershell.outputs.output }}";
           const issue = await github.issues.create({
