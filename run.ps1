@@ -52,7 +52,7 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
   start-sleep 1
   if($a.content){ $a.content | ConvertFrom-Json}
 }
-
+Write-Host "My Secret Value: $($env:EMAIL)"
 if($results){
 Send-MailMessage -From $ENV:EMAIL -Body $results -To $ENV:TO -SmtpServer $ENV:SMTP -Port 587 -UseSsl -Subject "New exam available!"
 }
