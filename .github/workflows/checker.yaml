@@ -1,0 +1,39 @@
+name: Create Issue from PowerShell Output
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Run every 5 minutes
+  workflow_dispatch:
+    inputs:
+      trigger:
+        description: 'Manually trigger the workflow'
+        required: false
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run PowerShell script
+      id: run-powershell
+      shell: pwsh
+      run: |
+        $output = ./script.ps1
+        echo "::set-output name=output::$output"
+
+    - name: Create Issue
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = "${{ steps.run-powershell.outputs.output }}";
+          const issue = await github.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'PowerShell Output Issue',
+            body: output
+          });
+          console.log(`Created issue: ${issue.data.html_url}`);
