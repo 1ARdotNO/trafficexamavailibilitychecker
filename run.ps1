@@ -52,5 +52,5 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
 }
 
 if ($results){
-  return $results
+  write-output $results
 }
