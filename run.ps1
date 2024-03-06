@@ -51,7 +51,7 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
   if($a.content){ $a.content | ConvertFrom-Json}
 }
 
-if ($results){
+
   write-output $results
   write-output "test"
-}
+
