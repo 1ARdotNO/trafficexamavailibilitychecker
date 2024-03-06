@@ -23,18 +23,20 @@ function Get-Exams {
 }
 
 function Get-DatesInRange {
-  param(
-      [DateTime]$StartDate,
-      [DateTime]$EndDate
-  )
+ param(
+        [DateTime]$StartDate,
+        [DateTime]$EndDate
+    )
 
-  $dates = @()
+    $dates = @()
 
-  $currentDate = $StartDate
-  while ($currentDate -le $EndDate) {
-      $dates += $currentDate
-      $currentDate = $currentDate.AddDays(1)
-  }
+    $currentDate = $StartDate
+    while ($currentDate -le $EndDate) {
+        if ($currentDate.DayOfWeek -ne 'Saturday' -and $currentDate.DayOfWeek -ne 'Sunday') {
+            $dates += $currentDate
+        }
+        $currentDate = $currentDate.AddDays(1)
+    }
 
   return $dates | get-date -Format yyyy-MM-dd
 }
