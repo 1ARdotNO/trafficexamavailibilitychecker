@@ -42,7 +42,7 @@ function Get-DatesInRange {
 }
 
 
-$days=42
+$days=14
 
 #risløkka
 $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($days) |ForEach-Object {
