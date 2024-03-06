@@ -20,22 +20,4 @@ jobs:
     - name: Run PowerShell script and save output to file
       shell: pwsh
       run: |
-        ./run.ps1 | Out-File -FilePath output.txt
-
-    - name: Read output file
-      id: read-output
-      run: echo "::set-output name=output::$(cat output.txt)"
-
-    - name: Create Issue
-      uses: actions/github-script@v4
-      with:
-        github-token: ${{ secrets.GH_TOKEN }}
-        script: |
-          const output = "${{ steps.read-output.outputs.output }}";
-          const issue = await github.issues.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            title: 'PowerShell Output Issue',
-            body: output
-          });
-          console.log(`Created issue: ${issue.data.html_url}`);
+        ./run.ps1
