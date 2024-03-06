@@ -19,5 +19,10 @@ jobs:
 
     - name: Run PowerShell script and save output to file
       shell: pwsh
+      env:
+        EMAIL: ${{ secrets.EMAIL }}
+        TO: ${{ secrets.TO }}
+        SMTP: ${{ secrets.SMTP }}
+        EMAILPW: ${{ secrets.EMAILPW }}
       run: |
         ./run.ps1
