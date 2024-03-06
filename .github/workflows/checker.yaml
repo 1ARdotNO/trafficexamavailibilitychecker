@@ -2,7 +2,7 @@ name: Create Issue from PowerShell Output
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # Run every 5 minutes
+    - cron: '*/10 * * * *'  # Run every 5 minutes
   workflow_dispatch:
     inputs:
       trigger:

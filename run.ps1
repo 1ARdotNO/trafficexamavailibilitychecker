@@ -52,11 +52,13 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
   start-sleep 1
   if($a.content){ $a.content | ConvertFrom-Json}
 }
-Write-Host "My Secret Value: $($env:EMAIL)"
+
 if($results){
+#print results
+write-host $results
+
+#send email
 $htmlresults=$results.fromdatetime | ForEach-Object{ @{timeslot=$_ | get-date -Format "yyyy-MM-dd hh:mm"}} | ConvertTo-Html
-
-
 $credentials = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ENV:EMAIL, (ConvertTo-SecureString -String $ENV:EMAILPW -AsPlainText -Force)
 Send-MailMessage -From $ENV:EMAIL -Body "$htmlresults" -To $ENV:TO -SmtpServer $ENV:SMTP -Port 587 -UseSsl -Subject "New exam available!" -credential $credentials -BodyAsHtml
 }
