@@ -47,6 +47,7 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
   $a=$null
   write-host "Checking $_ ..."
   $a=get-exams -date $_
+  start-sleep 1
   if($a.content){ $a.content | ConvertFrom-Json}
 }
 
