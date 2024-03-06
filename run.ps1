@@ -52,24 +52,6 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
 }
 
 if($results){
-
-#Prepare JSON payload for the issue
-$body = @{
-    title = "Free exam detected"
-    body = $results
-} | ConvertTo-Json
-
-# Set your GitHub repository details
-$owner = "1ARdotNO"
-$repo = "trafficexamavailibilitychecker"
-$token = $ENV:GH_TOKEN
-
-# Create the issue using GitHub API
-Invoke-RestMethod -Uri "https://api.github.com/repos/$owner/$repo/issues" `
-    -Method Post `
-    -Headers @{
-        "Authorization" = "token $token"
-        "Accept" = "application/vnd.github.v3+json"
-    } `
-    -Body $body
+Send-MailMessage -From $ENV:email -Body $results -To $ENV:TO -SmtpServer $ENV:SMTP -Port 587 -UseSsl -Subject "New exam available!"
 }
+
