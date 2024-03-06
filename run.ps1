@@ -55,6 +55,8 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
 Write-Host "My Secret Value: $($env:EMAIL)"
 if($results){
   $results=$results.fromdatetime | get-date -Format "yyyy-MM-dd hh:mm"
-Send-MailMessage -From $ENV:EMAIL -Body "$results" -To $ENV:TO -SmtpServer $ENV:SMTP -Port 587 -UseSsl -Subject "New exam available!"
+
+$credentials = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ENV:EMAIL, (ConvertTo-SecureString -String $ENV:EMAILPW -AsPlainText -Force)
+Send-MailMessage -From $ENV:EMAIL -Body "$results" -To $ENV:TO -SmtpServer $ENV:SMTP -Port 587 -UseSsl -Subject "New exam available!" -credential $credentials
 }
 
