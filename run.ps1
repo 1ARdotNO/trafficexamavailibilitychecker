@@ -53,4 +53,5 @@ $results=Get-DatesInRange -StartDate (get-date) -EndDate (get-date).AddDays($day
 
 if ($results){
   write-output $results
+  write-output "test"
 }
